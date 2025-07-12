@@ -1,0 +1,31 @@
+{
+  "name": "@igea/oac_jwt_helpers",
+  "version": "1.0.0",
+  "description": "JWT helpers for the OAC project",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node src/index.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chpigea/oac_jwt_helpers.git"
+  },
+  "author": "Christian R. Picone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chpigea/oac_jwt_helpers/issues"
+  },
+  "homepage": "https://github.com/chpigea/oac_jwt_helpers#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "jsonwebtoken": "9.0.2"
+  },
+  "devDependencies": {
+    "chai": "^5.2.1",
+    "cross-env": "7.0.3",
+    "mocha": "^11.7.1",
+    "sinon": "^21.0.0",
+    "supertest": "^7.1.3"
+  }
+}
