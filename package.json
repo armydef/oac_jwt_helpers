@@ -1,6 +1,6 @@
 {
   "name": "@igea/oac_jwt_helpers",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "JWT helpers for the OAC project",
   "main": "src/index.js",
   "scripts": {
