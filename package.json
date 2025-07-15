@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/chpigea/oac_jwt_helpers#readme",
   "dependencies": {
-    "express": "^5.1.0",
+    "express": "5.1.0",
     "jsonwebtoken": "9.0.2"
   },
   "devDependencies": {

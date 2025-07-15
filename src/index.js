@@ -34,7 +34,7 @@ module.exports = function createJwtMiddleware({
     }
 
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    let token = authHeader && authHeader.split(' ')[1];
     if(!token && useCookie && req.cookies) token = req.cookies.token;
 
     if (!token) {
@@ -47,7 +47,7 @@ module.exports = function createJwtMiddleware({
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
         if(redirectTo)
-          res.redirect(redirectTo);
+          return res.redirect(redirectTo);
         else 
           return res.status(403).json({ error: 'Invalid token' });
       }
@@ -55,6 +55,7 @@ module.exports = function createJwtMiddleware({
 
       if(useCookie){
         newToken = createToken({ user: decoded })
+        console.log(newToken)
         res.cookie('token', newToken, {
           httpOnly: true,
           secure: false,
