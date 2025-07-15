@@ -12,7 +12,8 @@ module.exports = function createJwtMiddleware({
     secret, 
     excludePaths = [],
     signOptions = { expiresIn: '1h' },
-    redirectTo = null
+    redirectTo = null,
+    useCookie = true
 }) {
   if (!secret) {
     throw new Error('JWT secret is required');
@@ -34,6 +35,7 @@ module.exports = function createJwtMiddleware({
 
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
+    if(!token && useCookie && req.cookies) token = req.cookies.token;
 
     if (!token) {
       if(redirectTo)
@@ -50,7 +52,18 @@ module.exports = function createJwtMiddleware({
           return res.status(403).json({ error: 'Invalid token' });
       }
       req.user = decoded;
+
+      if(useCookie){
+        newToken = createToken({ user: decoded })
+        res.cookie('token', newToken, {
+          httpOnly: true,
+          secure: false,
+          sameSite: 'lax'
+        })
+      }
+
       next();
+
     });
   };
 
