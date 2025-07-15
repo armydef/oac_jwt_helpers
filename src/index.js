@@ -11,7 +11,8 @@ const jwt = require('jsonwebtoken');
 module.exports = function createJwtMiddleware({ 
     secret, 
     excludePaths = [],
-    signOptions = { expiresIn: '1h' }
+    signOptions = { expiresIn: '1h' },
+    redirectTo = null
 }) {
   if (!secret) {
     throw new Error('JWT secret is required');
@@ -35,12 +36,18 @@ module.exports = function createJwtMiddleware({
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-      return res.status(401).json({ error: 'Missing token' });
+      if(redirectTo)
+        res.redirect(redirectTo);
+      else  
+        return res.status(401).json({ error: 'Missing token' });
     }
 
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
-        return res.status(403).json({ error: 'Invalid token' });
+        if(redirectTo)
+          res.redirect(redirectTo);
+        else 
+          return res.status(403).json({ error: 'Invalid token' });
       }
       req.user = decoded;
       next();
