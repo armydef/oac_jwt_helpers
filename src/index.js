@@ -55,7 +55,7 @@ module.exports = function createJwtMiddleware({
         else 
           return res.status(403).json({ error: 'Invalid token' });
       }
-      req.user = decoded;
+      req.user = decoded.user || decoded;
 
       console.log("JwtMiddleware: step 4")
       if(useCookie){
