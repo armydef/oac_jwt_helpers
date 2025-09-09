@@ -59,7 +59,7 @@ module.exports = function createJwtMiddleware({
 
       console.log("JwtMiddleware: step 4")
       if(useCookie){
-        newToken = createToken({ user: decoded })
+        newToken = createToken({ user: decoded.user })
         console.log("JwtMiddleware: " + newToken)
         res.cookie('token', newToken, {
           httpOnly: true,
