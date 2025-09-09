@@ -59,7 +59,8 @@ module.exports = function createJwtMiddleware({
 
       console.log("JwtMiddleware: step 4")
       if(useCookie){
-        newToken = createToken({ user: decoded.user })
+        const { iat, exp, ...userPayload } = decoded;
+        newToken = createToken(userPayload)
         console.log("JwtMiddleware: " + newToken)
         res.cookie('token', newToken, {
           httpOnly: true,
